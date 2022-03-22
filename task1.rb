@@ -57,7 +57,7 @@ class Extreme_weather
       day=array[0].split("-")
       if day[0]==$year
         find_highest_temp(array[1],day)
-        find_highest_temp(array[3],day)
+        find_lowest_temp(array[3],day)
         find_most_humid(array[7],day)
       end
     end
