@@ -2,7 +2,7 @@
 require 'date'
 class Extreme_weather
 
-  def initialize()
+  def initialize
     @most_humid_day = []
     @lowest_temp_day = []
     @highest_temp_day = []
@@ -12,10 +12,11 @@ class Extreme_weather
 
   end
 
-  def print()
+  def printval
     print("Highest: #{@highest_temp}C on #{Date::MONTHNAMES[@highest_temp_day[1].to_i]} #{@highest_temp_day[2]}\n")
     print("Lowest: #{@lowest_temp}C on #{Date::MONTHNAMES[@lowest_temp_day[1].to_i]} #{@lowest_temp_day[2]}\n")
     print("Humid: #{@most_humid}% on #{Date::MONTHNAMES[@most_humid_day[1].to_i]} #{@most_humid_day[2]}\n")
+
 
 
   end
@@ -39,8 +40,8 @@ class Extreme_weather
   end
 
   def find_most_humid(humidity,day)
-    if humid!=""
-      if(humid.to_i>=@most_humid.to_i)
+    if humidity!=""
+      if(humidity.to_i>=@most_humid.to_i)
         @most_humid=humidity
         @most_humid_day=day
       end
@@ -48,7 +49,8 @@ class Extreme_weather
   end
 
 
-  def readfile(file)
+  def readfile(filename)
+    file = File.open(filename)
     for line in file.readlines()[1..-1]
       day=[]
       array=line.split(",")
@@ -59,20 +61,9 @@ class Extreme_weather
         find_most_humid(array[7],day)
       end
     end
+    file.close
 
 
-  end
-
-  def iterate_folders(path)
-    MainDirectoryfolder = Dir.glob("#{path}/*")
-    MainDirectoryfolder.each do |f|
-      subdirectoryfiles = Dir.glob("#{f}/*")
-      subdirectoryfiles.each do |filename|
-        file = File.open(filename)
-        readfile(file)
-        file.close
-      end
-    end
   end
 
 
@@ -80,8 +71,16 @@ class Extreme_weather
 end
 
 a=[ARGV]
-year=a[0][1].to_s
+$year=a[0][1].to_s
 path=a[0][2].to_s
 testobj = Extreme_weather.new
-testobj.iterate_folders(path)
-testobj.print()
+MainDirectoryfolder = Dir.glob("#{path}/*")
+MainDirectoryfolder.each do |f|
+  subdirectoryfiles = Dir.glob("#{f}/*")
+  subdirectoryfiles.each do |filename|
+    testobj.readfile(filename)
+
+  end
+end
+
+testobj.printval
