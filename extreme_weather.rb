@@ -4,7 +4,7 @@
 # frozen_string_literal: true
 
 require 'date'
-require 'read_file'
+require_relative 'read_file'
 class ExtremeWeather
   include Readfile
   def initialize(year)

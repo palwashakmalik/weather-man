@@ -3,10 +3,10 @@
 # bad
 # frozen_string_literal: true
 
-class Readfile
+module Readfile
   def read_file_data(filename)
     file = File.open(filename)
-    for line in file.readlines[1..]
+    for line in file.readlines[1..-1]
       day = []
       array = line.split(',')
       day = array[0].split('-')
