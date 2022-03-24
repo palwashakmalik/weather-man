@@ -1,5 +1,6 @@
 require 'date'
 require_relative 'read_file'
+
 class ExtremeWeather
   include Readfile
   def initialize(year)
