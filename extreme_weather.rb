@@ -1,8 +1,3 @@
-# The file has a class to find extreme weather
-# A read_file class is also required to run read file method
-#
-# frozen_string_literal: true
-
 require 'date'
 require_relative 'read_file'
 class ExtremeWeather

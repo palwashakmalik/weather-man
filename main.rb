@@ -1,9 +1,5 @@
-# This is the main body file from where the functionality is selected
-# not exist in a file.
-# bad
-# frozen_string_literal: true
-
 require_relative 'Extreme_weather'
+
 def user_input(input, year)
   object = ExtremeWeather.new(year) if input == '-e'
 end
