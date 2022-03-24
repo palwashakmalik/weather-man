@@ -1,10 +1,6 @@
-# File for average weather task
-# For a given month display the average highest temperature, average lowest temperature, average humidity.
-# Called from the main class
-# includes ruby read_file
+require_relative './date'
+require_relative './read_file'
 
-require 'date'
-require_relative 'read_file'
 class AverageWeather
   include Readfile
   def initialize(year, month)

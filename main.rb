@@ -1,9 +1,11 @@
-require './Extreme_weather'
+require_relative './Extreme_weather'
+require_relative './average_weather'
 
 def user_input
-  raise 'Wrong User Input' unless ARGV[0].to_s == '-e'
+  raise 'Wrong User Input' unless ARGV[0].to_s == '-e' || ARGV[0].to_s == '-a'
 
-  ExtremeWeather.new(ARGV[1].to_s)
+  ExtremeWeather.new(ARGV[1].to_s) if ARGV[0].to_s == '-e'
+  AverageWeather.new(ARGV[1].split('/')[0].to_s, ARGV[1].split('/')[1].to_s) if ARGV[0].to_s == '-a'
 end
 
 begin
