@@ -1,6 +1,7 @@
 require 'colorize'
 require 'date'
 require_relative 'read_file'
+
 class WeatherCharts
   include Readfile
   def initialize(year, month)
