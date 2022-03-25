@@ -1,19 +1,24 @@
 require 'colorize'
 require 'date'
-require_relative 'read_file'
+require './read_file'
 
 class WeatherCharts
   include Readfile
   def initialize(year, month)
-
     puts "#{Date::MONTHNAMES[@month.to_i]} #{@year}\n "
     @year = year
     @month = month
   end
 
   def find_indexes(line)
+<<<<<<< HEAD
     @maximum_temperature_index = line.split(',').index('Max TemperatureC')
     @minimum_temperature_index = line.split(',').index('Min TemperatureC')
+=======
+    line = line.split(',')
+    @maximum_temperature_index = line.index('Max TemperatureC')
+    @minimum_temperature_index = line.index('Min TemperatureC')
+>>>>>>> 9e99196 (requested changes were made)
   end
 
   def bars(count, color)
