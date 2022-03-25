@@ -17,7 +17,7 @@ class AverageWeather
       sum += i
     end
     begin
-       sum / array.size
+      sum / array.size
     rescue
       puts "tried to divide by zero"
     end
@@ -49,14 +49,19 @@ class AverageWeather
   end
 
   def find_values(array)
-    array = array.split(',')
     begin
-      day = DateTime.strptime(array[0], '%Y-%m-%d')
-      return unless day.year.to_s == @year && day.month.to_s == @month
+      data.shift if data[0].strip.empty?
+      find_indexes(data[0])
+      data.delete_at(0)
+      data.each do |array|
+        array = array.split(',')
+        day = DateTime.strptime(array[0], '%Y-%m-%d')
+        return unless day.year.to_s == @year && day.month.to_s == @month
 
-      add_highest_average_temperature(array[@maximum_temperature_index])
-      add_lowest_average_temperature(array[@minimum_temperature_index])
-      add_average_humidity(array[@maximum_humidity_index])
+        add_highest_average_temperature(array[@maximum_temperature_index])
+        add_lowest_average_temperature(array[@minimum_temperature_index])
+        add_average_humidity(array[@maximum_humidity_index])
+      end
     rescue
     end
   end
