@@ -1,22 +1,26 @@
 require 'date'
-require_relative 'read_file'
+require './read_file'
 
 class ExtremeWeather
   include Readfile
   def initialize(year)
     @year = year
-    @most_humid_day = []
-    @lowest_temperature_day = []
-    @highest_temperature_day = []
     @highest_temperature = -1000
     @lowest_temperature = 1000
     @most_humidity = -1000
   end
 
+  def find_indexes(line)
+    line = line.split(',')
+    @maximum_temperature_index = line.index('Max TemperatureC')
+    @minimum_temperature_index = line.index('Min TemperatureC')
+    @maximum_humidity_index = line.index('Max Humidity')
+  end
+
   def print_values
-    print("Highest: #{@highest_temperature}C on #{Date::MONTHNAMES[@highest_temperature_day[1].to_i]} #{@highest_temperature_day[2]}\n")
-    print("Lowest: #{@lowest_temperature}C on #{Date::MONTHNAMES[@lowest_temperature_day[1].to_i]} #{@lowest_temperature_day[2]}\n")
-    print("Humid: #{@most_humidity}% on #{Date::MONTHNAMES[@most_humid_day[1].to_i]} #{@most_humid_day[2]}\n")
+    print("Highest: #{@highest_temperature}C on #{Date::MONTHNAMES[@highest_temperature_day.month]} #{@highest_temperature_day.day}\n")
+    print("Lowest: #{@lowest_temperature}C on #{Date::MONTHNAMES[@lowest_temperature_day.month]} #{@lowest_temperature_day.day}\n")
+    print("Humid: #{@most_humidity}% on #{Date::MONTHNAMES[@most_humid_day.month]} #{@most_humid_day.day}\n")
   end
 
   def find_highest_temperature(temperature, day)
@@ -40,11 +44,16 @@ class ExtremeWeather
     @most_humid_day = day
   end
 
-  def find_values(array, day)
-    return unless day[0] == @year
+  def find_values(array)
+    array = array.split(',')
+    begin
+      day = DateTime.strptime(array[0], '%Y-%m-%d')
+      return unless day.year.to_s == @year
 
-    find_highest_temperature(array[1], day)
-    find_lowest_temperature(array[3], day)
-    find_most_humidity(array[7], day)
+      find_highest_temperature(array[@maximum_temperature_index], day)
+      find_lowest_temperature(array[@minimum_temperature_index], day)
+      find_most_humidity(array[@maximum_humidity_index], day)
+    rescue
+    end
   end
 end

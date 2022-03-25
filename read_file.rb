@@ -1,11 +1,16 @@
 module Readfile
   def read_file_data(filename)
     file = File.open(filename)
-    for line in file.readlines[1..-1]
-      day = []
-      array = line.split(',')
-      day = array[0].split('-')
-      find_values(array, day)
+    file.each_line do |line|
+      next if line.strip.empty?
+
+      find_indexes(line)
+      break
+    end
+    file.each_line do |line| [1..-1]
+      next if line.strip.empty?
+
+      find_values(line)
     end
     file.close
   end
