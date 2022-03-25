@@ -44,15 +44,20 @@ class ExtremeWeather
     @most_humid_day = day
   end
 
-  def find_values(array)
-    array = array.split(',')
+  def find_values(data)
     begin
-      day = DateTime.strptime(array[0], '%Y-%m-%d')
-      return unless day.year.to_s == @year
+      data.shift if data[0].strip.empty?
+      find_indexes(data[0])
+      data.delete_at(0)
+      data.each do |array|
+        array = array.split(',')
+        day = DateTime.strptime(array[0], '%Y-%m-%d')
+        return unless day.year.to_s == @year
 
-      find_highest_temperature(array[@maximum_temperature_index], day)
-      find_lowest_temperature(array[@minimum_temperature_index], day)
-      find_most_humidity(array[@maximum_humidity_index], day)
+        find_highest_temperature(array[@maximum_temperature_index], day)
+        find_lowest_temperature(array[@minimum_temperature_index], day)
+        find_most_humidity(array[@maximum_humidity_index], day)
+      end
     rescue
     end
   end
