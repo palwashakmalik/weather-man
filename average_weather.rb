@@ -16,7 +16,18 @@ class AverageWeather
     array.each do |i|
       sum += i
     end
-    sum / array.size
+    begin
+       sum / array.size
+    rescue
+      puts "tried to divide by zero"
+    end
+  end
+
+  def find_indexes(line)
+    line = line.split(',')
+    @maximum_temperature_index = line.index('Max TemperatureC')
+    @minimum_temperature_index = line.index('Min TemperatureC')
+    @maximum_humidity_index = line.index('Max Humidity')
   end
 
   def print_values
@@ -37,12 +48,16 @@ class AverageWeather
     @average_humidity << humidity.to_i if humidity != ''
   end
 
-  def find_values(array, day)
-    if day[0] == @year && day[1] == @month
+  def find_values(array)
+    array = array.split(',')
+    begin
+      day = DateTime.strptime(array[0], '%Y-%m-%d')
+      return unless day.year.to_s == @year && day.month.to_s == @month
 
-      add_highest_average_temperature(array[1])
-      add_lowest_average_temperature(array[3])
-      add_average_humidity(array[8])
+      add_highest_average_temperature(array[@maximum_temperature_index])
+      add_lowest_average_temperature(array[@minimum_temperature_index])
+      add_average_humidity(array[@maximum_humidity_index])
+    rescue
     end
   end
 end
