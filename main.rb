@@ -10,18 +10,13 @@ begin
   IO.sysopen(ARGV[2].to_s)
   main_directory = Dir.glob("#{ARGV[2].to_s}/*")
   main_directory.each do |f|
-  begin
     IO.sysopen(f)
     sub_directory = Dir.glob("#{f}/*")
     sub_directory.each do |filename|
-    object.read_file_data(filename)
-  end
-  rescue Errno::ENOENT
-    puts 'No such file and directory'
-    exit(true)
+      object.read_file_data(filename)
+    end
   end
 rescue Errno::ENOENT
   puts 'No such directory'
-end
 end
 object.print_values
