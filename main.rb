@@ -5,8 +5,8 @@ def user_input
 
   ExtremeWeather.new(ARGV[1].to_s)
 end
-object = user_input
 begin
+  object = user_input
   IO.sysopen(ARGV[2].to_s)
   main_directory = Dir.glob("#{ARGV[2].to_s}/*")
   main_directory.each do |f|
@@ -16,7 +16,7 @@ begin
       object.read_file_data(filename)
     end
   end
+  object.print_values
 rescue Errno::ENOENT
   puts 'No such directory'
 end
-object.print_values
