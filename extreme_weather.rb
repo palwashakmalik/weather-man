@@ -48,7 +48,7 @@ class ExtremeWeather
     begin
       data.shift if data[0].strip.empty?
       find_indexes(data[0])
-      data.delete_at(0)
+      data= data[1..-1]
       data.each do |array|
         array = array.split(',')
         day = DateTime.strptime(array[0], '%Y-%m-%d')
