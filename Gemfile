@@ -1,6 +1,7 @@
-group :development, :test do
+group :development do
   gem 'rubocop'
   gem 'rubocop-performance'
   gem 'rubocop-rails'
-  gem 'rubocop-minitest' # or gem 'rubocop-rspec' depending on your test suite
+  gem 'rubocop-minitest'
+  gem 'rubocop-rspec'# depending on your test suite
 end
