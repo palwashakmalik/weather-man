@@ -5,6 +5,7 @@ def user_input
 
   ExtremeWeather.new(ARGV[1].to_s)
 end
+
 begin
   object = user_input
   IO.sysopen(ARGV[2].to_s)

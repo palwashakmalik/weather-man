@@ -45,19 +45,17 @@ class ExtremeWeather
   end
 
   def find_values(data)
-    begin
-      data.shift if data[0].strip.empty?
-      find_indexes(data[0])
-      data[1..-1].each do |array|
-        array = array.split(',')
-        day = DateTime.strptime(array[0], '%Y-%m-%d')
-        return unless day.year.to_s == @year
+    data.shift if data[0].strip.empty?
+    find_indexes(data[0])
+    data[1..-1].each do |array|
+      array = array.split(',')
+      day = DateTime.strptime(array[0], '%Y-%m-%d')
+      return unless day.year.to_s == @year
 
-        find_highest_temperature(array[@maximum_temperature_index], day)
-        find_lowest_temperature(array[@minimum_temperature_index], day)
-        find_most_humidity(array[@maximum_humidity_index], day)
-      end
-    rescue
+      find_highest_temperature(array[@maximum_temperature_index], day)
+      find_lowest_temperature(array[@minimum_temperature_index], day)
+      find_most_humidity(array[@maximum_humidity_index], day)
     end
+
   end
 end
