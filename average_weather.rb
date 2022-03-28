@@ -1,11 +1,11 @@
-require_relative './date'
-require_relative './read_file'
+require 'date'
+require './read_file'
 
 class AverageWeather
   include Readfile
   def initialize(year, month)
-    @year = year
-    @month = month
+    @year = year.to_s
+    @month = month.to_s
     @highest_average_temperature = []
     @lowest_average_temperature = []
     @average_humidity = []
@@ -13,21 +13,16 @@ class AverageWeather
 
   def average(array)
     sum = 0
-    array.each do |i|
-      sum += i
-    end
-    begin
-      sum / array.size
-    rescue
-      puts "tried to divide by zero"
-    end
+    array.map { |i| sum += i }
+    raise 'Invalid' if array.size.zero?
+
+    sum /= array.size
   end
 
   def find_indexes(line)
-    line = line.split(',')
-    @maximum_temperature_index = line.index('Max TemperatureC')
-    @minimum_temperature_index = line.index('Min TemperatureC')
-    @maximum_humidity_index = line.index('Max Humidity')
+    @maximum_temperature_index = line.split(',').index('Max TemperatureC')
+    @minimum_temperature_index = line.split(',').index('Min TemperatureC')
+    @maximum_humidity_index = line.split(',').index('Max Humidity')
   end
 
   def print_values
@@ -37,18 +32,18 @@ class AverageWeather
   end
 
   def add_highest_average_temperature(temperature)
-    @highest_average_temperature << temperature.to_i if temperature != ''
+    @highest_average_temperature << temperature.to_i if !temperature.empty?
   end
 
   def add_lowest_average_temperature(temperature)
-    @lowest_average_temperature << temperature.to_i if temperature != ''
+    @lowest_average_temperature << temperature.to_i if !temperature.empty?
   end
 
   def add_average_humidity(humidity)
-    @average_humidity << humidity.to_i if humidity != ''
+    @average_humidity << humidity.to_i if !humidity.empty?
   end
 
-  def find_values(array)
+  def find_values(data)
     begin
       data.shift if data[0].strip.empty?
       find_indexes(data[0])
