@@ -3,7 +3,6 @@ module Readfile
     file = File.open(filename)
     data = file.readlines.map { |line| line }
     find_values(data)
-
     file.close
   end
 end
