@@ -44,8 +44,7 @@ class AverageWeather
   end
 
   def find_values(data)
-    begin
-      data.shift if data[0].strip.empty?
+    data.shift if data[0].strip.empty?
       find_indexes(data[0])
       data[1..-2].each do |array|
         array = array.split(',')
@@ -56,7 +55,5 @@ class AverageWeather
         add_lowest_average_temperature(array[@minimum_temperature_index])
         add_average_humidity(array[@maximum_humidity_index])
       end
-    rescue
-    end
   end
 end
