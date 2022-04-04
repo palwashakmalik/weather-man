@@ -49,10 +49,7 @@ PLATFORMS
 
 DEPENDENCIES
   rubocop
-<<<<<<< HEAD
   rubocop-minitest
-=======
->>>>>>> 1e24e2e (Update Charts Weather Implementation)
   rubocop-performance
   rubocop-rails
   rubocop-rspec

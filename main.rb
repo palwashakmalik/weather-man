@@ -9,16 +9,13 @@ def user_input
   AverageWeather.new(ARGV[1].split('/')[0].to_s, ARGV[1].split('/')[1].to_s) if ARGV[0].to_s == '-a'
   WeatherCharts.new(ARGV[1].split('/')[0].to_s, ARGV[1].split('/')[1].to_s) if ARGV[0].to_s == '-c'
 end
+
 begin
   object = user_input
   IO.sysopen(ARGV[2].to_s)
   main_directory = Dir.glob("#{ARGV[2].to_s}/*")
   main_directory.each do |f|
-    IO.sysopen(f)
-    sub_directory = Dir.glob("#{f}/*")
-    sub_directory.each do |filename|
-      object.read_file_data(filename)
-    end
+    object.read_file_data(f)
   end
   object.print_values
 rescue Errno::ENOENT

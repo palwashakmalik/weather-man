@@ -5,29 +5,19 @@ require './read_file'
 class WeatherCharts
   include Readfile
   def initialize(year, month)
-    puts "#{Date::MONTHNAMES[@month.to_i]} #{@year}\n "
     @year = year
     @month = month
+    puts "#{Date::MONTHNAMES[@month.to_i]} #{@year}"
   end
 
   def find_indexes(line)
-<<<<<<< HEAD
     @maximum_temperature_index = line.split(',').index('Max TemperatureC')
     @minimum_temperature_index = line.split(',').index('Min TemperatureC')
-=======
-    line = line.split(',')
-    @maximum_temperature_index = line.index('Max TemperatureC')
-    @minimum_temperature_index = line.index('Min TemperatureC')
->>>>>>> 9e99196 (requested changes were made)
   end
 
   def bars(count, color)
     count.to_i.times do
-      if color == 'blue'
-        print('+'.blue)
-      else
-        print('+'.red)
-      end
+      color == 'blue' ? print('+'.blue) : print('+'.red)
     end
   end
 
@@ -51,8 +41,8 @@ class WeatherCharts
       day = DateTime.strptime(array[0], '%Y-%m-%d')
       return unless day.year.to_s == @year && day.month.to_s == @month
 
-      print_highest(array[@maximum_temperature_index], day.day) if !array[1].empty?
-      print_lowest(array[@maximum_temperature_index], day.day) if !array[3].empty?
+      print_highest(array[@maximum_temperature_index], day.day) if !array[@maximum_temperature_index].empty?
+      print_lowest(array[@minimum_temperature_index], day.day) if !array[@minimum_temperature_index].empty?
     end
   end
 end
